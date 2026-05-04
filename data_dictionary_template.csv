@@ -1,0 +1,13 @@
+variable,layer,source,series_code_or_ticker,unit,transform,frequency,start_date,notes
+GPR,geopolitical,Caldara-Iacoviello,GPR Index,index,zscore,daily,2000-01-01,需手动下载后并入market_long.csv
+WTI,energy,Yahoo Finance,CL=F,USD/barrel,log_return,daily,2000-01-01,
+Brent,energy,Yahoo Finance,BZ=F,USD/barrel,log_return,daily,2000-01-01,
+HenryHub,energy,Yahoo Finance,NG=F,USD/MMBtu,log_return,daily,2000-01-01,
+SP500,financial,Yahoo Finance,^GSPC,index points,log_return,daily,2000-01-01,
+MSCIWorldProxy,financial,Yahoo Finance,URTH,ETF price,log_return,daily,2012-01-01,MSCI World代理
+Gold,commodity,Yahoo Finance,GC=F,USD/oz,log_return,daily,2000-01-01,
+Copper,commodity,Yahoo Finance,HG=F,USD/lb,log_return,daily,2000-01-01,
+DXY,control,FRED,DTWEXBGS,index,zscore,daily,2006-01-01,
+VIX,control,FRED,VIXCLS,index,zscore,daily,1990-01-01,
+US10Y,control,FRED,DGS10,percent,zscore,daily,1962-01-01,
+EFFR,control,FRED,DFF,percent,zscore,daily,1954-01-01,
