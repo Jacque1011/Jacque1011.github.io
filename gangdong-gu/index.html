@@ -275,7 +275,7 @@ button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(-
 <span class="label">05</span>
 <h2>Full report</h2>
 <p>All 81 pages, including methods, assumptions and sensitivity analysis.</p>
-<p><a class="btn" href="report_hq.pdf" download="Gangdong-gu_KTH_report.pdf">⬇ Download PDF (13 MB)</a></p>
+<p><a class="btn" href="report.pdf" download="Gangdong-gu_KTH_report.pdf">⬇ Download PDF (49 MB)</a></p>
 <p class="hint" style="margin-top:12px">Tap a heading on the contents page or a figure reference to jump there, or use the ☰ Contents button while reading.</p>
 <div id="reader" aria-live="polite"><p class="status" id="status">Loading the report…</p></div>
 <div id="sheet" class="sheet" role="dialog" aria-label="Contents" aria-hidden="true"><div class="sheethead"><b>Contents</b><button type="button" id="sheetclose" aria-label="Close contents">✕</button></div><ol id="sheetlist"></ol></div>
@@ -372,7 +372,7 @@ In collaboration with the city of Seoul. Results are comparative scenario outcom
   var reader=document.getElementById('reader'), status=document.getElementById('status'), back=document.getElementById('backtoc');
   function fail(){ status.textContent='The inline reader could not load here.'; }
   if(!window.pdfjsLib){ fail(); return; }
-  pdfjsLib.getDocument({url:'report.pdf'}).promise.then(function(pdf){
+  pdfjsLib.getDocument({url:'report.pdf', rangeChunkSize:524288, disableAutoFetch:true, disableStream:true}).promise.then(function(pdf){
     status.remove();
     var pages=[], cache={};
     function getPage(n){ return cache[n]||(cache[n]=pdf.getPage(n)); }
