@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gangdong-gu · Smart and Sustainable District</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#000061;--blue:#004791;--sky:#6298D2;--tint:#DEF0FF;--pale:#FFF3D1;--yellow:#FFBE00;--ink:#1A1A2E;--muted:#4A4A5A;--line:#D5DCE6;--bg:#F5F8FC}
+*{box-sizing:border-box}
+html,body{margin:0;background:#fff;color:var(--ink);font-family:Figtree,"Microsoft YaHei","Segoe UI",sans-serif;-webkit-text-size-adjust:100%}
+a{color:var(--blue)}
+button{font-family:inherit;cursor:pointer}
+.wrap{max-width:880px;margin:0 auto;padding:0 20px}
+header{background:var(--navy);color:#fff;padding:36px 0 30px}
+.hdr{position:relative}
+.hdr .logo{position:absolute;top:0;right:20px;width:110px;height:auto}
+.hdr .lead,.hdr h1,.hdr .kicker{padding-right:130px}
+@media (max-width:560px){.hdr .logo{position:static;display:block;width:56px;margin-bottom:14px}.hdr .lead,.hdr h1,.hdr .kicker{padding-right:0}}
+.kicker{margin:0;font-size:12px;font-weight:700;letter-spacing:2.5px;color:var(--yellow)}
+h1{margin:10px 0 8px;font-size:clamp(34px,8vw,56px);line-height:1;font-weight:800;letter-spacing:6px}
+.lead{margin:0;font-size:18px;line-height:1.45;color:var(--tint);max-width:620px}
+.meta{margin:18px 0 0;font-size:13px;line-height:1.5;color:#B9C8E6}
+.cta{display:inline-flex;align-items:center;gap:8px;margin-top:20px;padding:12px 18px;background:var(--yellow);color:var(--navy);font-weight:800;font-size:15px;border-radius:8px;text-decoration:none}
+nav{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line)}
+nav .wrap{display:flex;gap:6px;overflow-x:auto;padding-top:10px;padding-bottom:10px;scrollbar-width:none}
+nav a{flex-shrink:0;font-size:13px;font-weight:700;color:var(--navy);text-decoration:none;padding:7px 12px;border-radius:999px;background:var(--bg)}
+section{padding:40px 0 8px}
+.label{display:inline-block;padding:3px 8px;border-radius:4px;background:var(--yellow);font-size:12px;font-weight:800;color:var(--navy)}
+h2{margin:10px 0 14px;font-size:24px;font-weight:800;color:var(--navy);letter-spacing:.3px}
+p{font-size:16px;line-height:1.6;margin:0 0 12px}
+.hint{font-size:13px;color:var(--blue);font-weight:700;margin:-4px 0 12px}
+.note{font-size:12px;color:var(--muted);margin:8px 0 0}
+
+/* 01 KPI cards */
+.kpis{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+.kpi{position:relative;text-align:left;border:2px solid transparent;background:var(--tint);border-radius:12px;padding:16px 14px;color:var(--ink);transition:transform .15s,border-color .15s}
+.kpi:hover{transform:translateY(-2px)}
+.kpi.alt{background:#fff;border-color:var(--yellow)}
+.kpi b{display:block;font-size:30px;line-height:1.05;font-weight:800;color:var(--navy)}
+.kpi .cap{display:block;margin-top:4px;font-size:13px;line-height:1.35;color:var(--muted)}
+.kpi .more{display:none;margin-top:10px;padding-top:10px;border-top:1px solid rgba(0,0,97,.15);font-size:13px;line-height:1.5;color:var(--ink)}
+.kpi[aria-expanded="true"]{border-color:var(--navy)}
+.kpi[aria-expanded="true"] .more{display:block}
+.kpi .plus{position:absolute;top:10px;right:12px;font-size:18px;font-weight:800;color:var(--blue);transition:transform .2s}
+.kpi[aria-expanded="true"] .plus{transform:rotate(45deg)}
+@media (max-width:560px){.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.kpi b{font-size:26px}}
+
+/* 02 scenarios */
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:16px}
+.card{text-align:left;background:#fff;border:2px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px;color:var(--ink);transition:border-color .15s,background .15s}
+.card h3{margin:0;font-size:16px;color:var(--navy)}
+.card p{margin:0;font-size:13px;line-height:1.45;color:var(--muted)}
+.card[aria-pressed="true"]{border-color:var(--navy);background:var(--tint)}
+.card.rec[aria-pressed="false"]{background:var(--pale);border-color:var(--yellow)}
+.tag{align-self:flex-start;font-size:10px;font-weight:800;letter-spacing:.8px;background:var(--yellow);color:var(--navy);padding:2px 6px;border-radius:3px}
+@media (max-width:620px){.cards{grid-template-columns:1fr}}
+.tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:12px}
+.tabs button{border:1.5px solid var(--line);background:#fff;color:var(--navy);font-weight:700;font-size:13px;padding:8px 12px;border-radius:999px}
+.tabs button[aria-selected="true"]{background:var(--navy);border-color:var(--navy);color:#fff}
+.chart{border:1.5px solid var(--line);border-radius:12px;padding:16px;margin-bottom:14px}
+.chart h4{margin:0 0 4px;font-size:13px;font-weight:800;letter-spacing:.6px;color:var(--blue)}
+.chart .sub{margin:0 0 12px;font-size:12px;color:var(--muted)}
+.row{display:grid;grid-template-columns:120px 1fr 74px;align-items:center;gap:10px;margin:9px 0;border-radius:6px}
+.row .n{font-size:14px}
+.row .v{font-size:15px;font-weight:800;color:var(--navy);text-align:right}
+.track{height:18px;background:#EEF1F5;border-radius:4px;overflow:hidden}
+.fill{height:18px;background:var(--sky);border-radius:4px;transition:width .6s cubic-bezier(.2,.8,.2,1),background .2s;width:0}
+.row.base .fill{background:#9AA7BA}
+.row.dec .fill{background:var(--blue)}
+.row.focus .fill{background:var(--yellow)}
+.row.focus .n{font-weight:800}
+.verdict{margin:10px 0 0;padding:10px 12px;border-radius:8px;background:var(--bg);font-size:13px;line-height:1.5}
+.scroll{overflow-x:auto;border:1.5px solid var(--line);border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:14px;min-width:520px}
+th,td{padding:10px 12px;border-bottom:1px solid var(--line);text-align:right;transition:background .15s}
+th:first-child,td:first-child{text-align:left}
+thead th{color:var(--navy);font-weight:800;border-bottom:2px solid var(--navy)}
+td.hl,th.hl{background:var(--tint);font-weight:700}
+tbody tr{cursor:pointer}
+tbody tr.sel td{background:var(--pale)}
+
+/* 03 hub */
+.split{display:flex;height:40px;border-radius:8px;overflow:hidden;margin:12px 0 4px;gap:2px}
+.split button{border:0;display:flex;align-items:center;padding:0 12px;font-size:13px;font-weight:800;transition:filter .15s}
+.split button[aria-pressed="true"]{filter:brightness(1.1);box-shadow:inset 0 -4px 0 var(--navy)}
+.tier{display:none;margin-top:10px;border-radius:12px;padding:16px}
+.tier.show{display:block}
+.tier h3{margin:0 0 6px;font-size:16px}
+.tier p{margin:0;font-size:14px;line-height:1.5}
+.tier ul{margin:8px 0 0;padding-left:18px;font-size:14px;line-height:1.6}
+.tier.pub{background:var(--navy);color:#fff}.tier.pub h3{color:var(--yellow)}.tier.pub p,.tier.pub ul{color:var(--tint)}
+.tier.pri{background:var(--tint)}.tier.pri h3{color:var(--navy)}
+.calc{margin-top:14px;border:1.5px solid var(--line);border-radius:12px;padding:16px}
+.calc label{display:block;font-size:13px;font-weight:700;color:var(--navy);margin-bottom:6px}
+.calc input[type=range]{width:100%;accent-color:var(--blue)}
+.calc .out{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:10px}
+.calc .out div{background:var(--bg);border-radius:8px;padding:10px;text-align:center}
+.calc .out b{display:block;font-size:18px;color:var(--navy)}
+.calc .out span{font-size:12px;color:var(--muted)}
+@media (max-width:560px){.calc .out{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.safe{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}
+.safe button{text-align:left;background:var(--bg);border:2px solid transparent;border-radius:10px;padding:12px;color:var(--ink)}
+.safe button b{display:block;color:var(--navy);font-size:15px}
+.safe button span{display:block;font-size:13px;color:var(--muted);line-height:1.4}
+.safe button .more{display:none;margin-top:8px;color:var(--ink)}
+.safe button[aria-expanded="true"]{border-color:var(--navy);background:#fff}
+.safe button[aria-expanded="true"] .more{display:block}
+@media (max-width:560px){.safe{grid-template-columns:1fr}}
+
+/* 04 steps */
+ol.steps{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+ol.steps button{width:100%;display:flex;gap:14px;align-items:flex-start;text-align:left;background:var(--bg);border:2px solid transparent;border-radius:12px;padding:14px;color:var(--ink)}
+ol.steps button[aria-expanded="true"]{border-color:var(--navy);background:#fff}
+ol.steps .num{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:var(--yellow);color:var(--navy);font-weight:800;display:flex;align-items:center;justify-content:center}
+ol.steps b{display:block;color:var(--navy);font-size:16px;margin-bottom:2px}
+ol.steps .s{display:block;font-size:14px;line-height:1.5;color:var(--muted)}
+ol.steps .more{display:none;margin-top:8px;font-size:14px;line-height:1.55;color:var(--ink)}
+ol.steps button[aria-expanded="true"] .more{display:block}
+.chev{margin-left:auto;font-weight:800;color:var(--blue);transition:transform .2s}
+button[aria-expanded="true"] .chev{transform:rotate(180deg)}
+
+/* report */
+#reader{background:#E9EEF5;border-radius:12px;padding:10px;display:flex;flex-direction:column;align-items:center;gap:10px;min-height:200px}
+.pg{position:relative;width:100%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.12);border-radius:2px;display:flex;align-items:center;justify-content:center;scroll-margin-top:64px}
+.pg canvas{display:block;width:100%;height:auto}
+.ph{color:#8A96A8;font-size:13px}
+.links{position:absolute;inset:0}
+.lk{position:absolute;display:block;border:0;padding:0;margin:0;background:transparent;border-radius:2px}
+.lk:hover,.lk:focus-visible{background:rgba(255,190,0,.28)}
+.toc{border:1.5px solid var(--line);border-radius:12px;padding:0;margin-top:14px;scroll-margin-top:64px}
+.toc summary{cursor:pointer;padding:14px 16px;font-weight:800;color:var(--navy);font-size:15px}
+.toc ol{margin:0;padding:0 16px 14px 16px;list-style:none;max-height:420px;overflow-y:auto}
+.toc ul{list-style:none;margin:2px 0 6px;padding-left:16px}
+.toc button{display:block;width:100%;text-align:left;border:0;background:none;padding:6px 8px;border-radius:6px;color:var(--ink)}
+.toc button:hover{background:var(--bg)}
+.toc .t1{font-weight:800;color:var(--navy);font-size:15px}
+.toc .t2{font-size:14px;color:var(--muted)}
+.backtoc{position:fixed;right:16px;bottom:16px;z-index:6;border:0;background:var(--navy);color:#fff;font-weight:800;font-size:14px;padding:12px 16px;border-radius:999px;box-shadow:0 4px 12px rgba(0,0,0,.2);opacity:0;pointer-events:none;transition:opacity .2s}
+.backtoc.on{opacity:1;pointer-events:auto}
+.sheet{position:fixed;right:16px;bottom:72px;z-index:7;width:min(340px,calc(100vw - 32px));max-height:min(60vh,460px);display:flex;flex-direction:column;background:#fff;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,40,.25);opacity:0;transform:translateY(12px);pointer-events:none;transition:opacity .18s,transform .18s}
+.sheet.open{opacity:1;transform:none;pointer-events:auto}
+.sheethead{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--line);color:var(--navy);font-size:15px}
+.sheethead button{border:0;background:var(--bg);width:32px;height:32px;border-radius:50%;font-size:14px;color:var(--navy)}
+.sheet ol{list-style:none;margin:0;padding:8px 10px 12px;overflow-y:auto}
+.sheet ul{list-style:none;margin:2px 0 6px;padding-left:14px}
+.sheet button.t1,.sheet button.t2{display:block;width:100%;text-align:left;border:0;background:none;padding:8px;border-radius:6px}
+.sheet .t1{font-weight:800;color:var(--navy);font-size:15px}
+.sheet .t2{font-size:14px;color:var(--muted)}
+.sheet button.t1:hover,.sheet button.t2:hover{background:var(--bg)}
+.status{font-size:14px;color:var(--muted);padding:20px;text-align:center}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;border:0;border-radius:8px;background:var(--navy);color:#fff;font-weight:700;text-decoration:none;font-size:15px}
+.btn[hidden]{display:none}
+.btn:disabled{opacity:.6}
+footer{margin-top:48px;padding:28px 0 40px;background:var(--bg);font-size:13px;line-height:1.6;color:var(--muted)}
+footer b{color:var(--navy)}
+button:focus-visible,a:focus-visible,input:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+<div class="wrap hdr">
+<img class="logo" src="kth.png" alt="KTH Royal Institute of Technology">
+<p class="kicker">SEOUL · SMART AND SUSTAINABLE DISTRICT</p>
+<h1>GANGDONG-GU</h1>
+<p class="lead">One district energy hub that cuts CO₂ by 57% and asks residents to pay nothing upfront.</p>
+<p class="meta">KTH Royal Institute of Technology · MJ2511 Energy Management · Phase 2 Report, 27 May 2026<br>Davide Nodari · Didrik Gimdal · Lukas Spalt · Gengfu Lin · Gabriel Rayan · Luca Panzera</p>
+<a class="cta" href="#report">Read the full report ↓</a>
+</div>
+</header>
+
+<nav aria-label="Sections">
+<div class="wrap">
+<a href="#summary">Summary</a><a href="#scenarios">Scenarios</a><a href="#hub">Energy hub</a><a href="#next">Next steps</a><a href="#report">Full report</a>
+</div>
+</nav>
+
+<main class="wrap">
+
+<section id="summary">
+<span class="label">01</span>
+<h2>The recommendation in numbers</h2>
+<p>Gangdong-gu has about 500,000 residents. Heating still relies mainly on gas boilers, and buildings cause 71% of the district's emissions. We modelled three pathways and recommend <b>District Energy Consideration</b>: heat pumps, a 5th-generation heating and cooling network, battery storage and coordinated EV charging.</p>
+<p class="hint">Tap a number to see what it means.</p>
+<div class="kpis">
+<button class="kpi" aria-expanded="false"><span class="plus" aria-hidden="true">+</span><b>−57%</b><span class="cap">CO₂ emissions vs 2025</span><span class="more">From 1,294 to 552 kt CO₂ per year. Most remaining emissions come from fossil vehicles, waste and grid electricity.</span></button>
+<button class="kpi" aria-expanded="false"><span class="plus" aria-hidden="true">+</span><b>−42%</b><span class="cap">primary energy vs 2025</span><span class="more">From 7,122 to 4,150 GWh per year, mainly by replacing gas boilers with heat pumps.</span></button>
+<button class="kpi" aria-expanded="false"><span class="plus" aria-hidden="true">+</span><b>14%</b><span class="cap">peak shaving</span><span class="more">The 100 MWh battery and smart EV charging cut 14% off the peak this scenario would have without them. Electrification still raises the absolute peak above today's.</span></button>
+<button class="kpi alt" aria-expanded="false"><span class="plus" aria-hidden="true">+</span><b>$1,042 M</b><span class="cap">net present value</span><span class="more">The highest of the three scenarios, from the investor's perspective, at a 5% discount rate.</span></button>
+<button class="kpi alt" aria-expanded="false"><span class="plus" aria-hidden="true">+</span><b>12.2%</b><span class="cap">internal rate of return</span><span class="more">Business as usual reaches 7.6% and Grid-linked 10.2%.</span></button>
+<button class="kpi alt" aria-expanded="false"><span class="plus" aria-hidden="true">+</span><b>9 years</b><span class="cap">discounted payback</span><span class="more">The shortest of the three scenarios, on a $1.8 bn investment. The NPV stays positive in every sensitivity test.</span></button>
+</div>
+</section>
+
+<section id="scenarios">
+<span class="label">02</span>
+<h2>Three scenarios compared</h2>
+<p class="hint">Tap a scenario or a metric to compare.</p>
+<div class="cards" role="group" aria-label="Scenarios">
+<button class="card" data-s="bau" aria-pressed="false"><h3>Business as usual</h3><p>A conservative transition in line with Korea's national climate commitment.</p></button>
+<button class="card rec" data-s="dec" aria-pressed="false"><span class="tag">RECOMMENDED</span><h3>District energy</h3><p>5GDHC network, more heat pumps, 100 MWh battery and coordinated EV charging.</p></button>
+<button class="card" data-s="gld" aria-pressed="false"><h3>Grid-linked</h3><p>The most ambitious path: gas boilers phased out, extra renewables beyond the district.</p></button>
+</div>
+
+<div class="tabs" role="tablist" aria-label="Metric" id="tabs"></div>
+<div class="chart">
+<h4 id="ctitle"></h4>
+<p class="sub" id="csub"></p>
+<div id="bars"></div>
+<p class="verdict" id="verdict"></p>
+</div>
+
+<div class="scroll">
+<table id="tbl">
+<thead><tr><th>Indicator</th><th data-c="bau">Business as usual</th><th data-c="dec">District energy</th><th data-c="gld">Grid-linked</th></tr></thead>
+<tbody>
+<tr data-m="co2"><td>CO₂ reduction vs 2025</td><td data-c="bau">−40%</td><td data-c="dec">−57%</td><td data-c="gld">−62%</td></tr>
+<tr data-m="pe"><td>Primary energy reduction vs 2025</td><td data-c="bau">−28%</td><td data-c="dec">−42%</td><td data-c="gld">−45%</td></tr>
+<tr data-m="peak"><td>Peak shaving ratio</td><td data-c="bau">2%</td><td data-c="dec">14%</td><td data-c="gld">23%</td></tr>
+<tr data-m="res"><td>Renewable share</td><td data-c="bau">30%</td><td data-c="dec">39%</td><td data-c="gld">47%</td></tr>
+<tr data-m="el"><td>Electrification</td><td data-c="bau">66%</td><td data-c="dec">88%</td><td data-c="gld">96%</td></tr>
+<tr data-m="capex"><td>Investment (CAPEX)</td><td data-c="bau">$1.3 bn</td><td data-c="dec">$1.8 bn</td><td data-c="gld">$2.1 bn</td></tr>
+<tr data-m="npv"><td>Net present value</td><td data-c="bau">$259 M</td><td data-c="dec">$1,042 M</td><td data-c="gld">$868 M</td></tr>
+<tr data-m="irr"><td>IRR</td><td data-c="bau">7.6%</td><td data-c="dec">12.2%</td><td data-c="gld">10.2%</td></tr>
+<tr data-m="pb"><td>Discounted payback</td><td data-c="bau">14 yrs</td><td data-c="dec">9 yrs</td><td data-c="gld">11 yrs</td></tr>
+</tbody>
+</table>
+</div>
+<p class="note">Peak shaving is measured against the same scenario without battery and smart charging. Source: report, Tables 13, 15 and 18.</p>
+</section>
+
+<section id="hub">
+<span class="label">03</span>
+<h2>The Gangdong Energy Hub</h2>
+<p>A public-private Energy-as-a-Service platform finances, owns and runs the equipment. Residents subscribe to heat, cooling, electricity and EV charging at regulated tariffs, with no upfront investment.</p>
+<p class="hint">Tap a tier to see who owns what.</p>
+<div class="split" role="group" aria-label="Investment split by tier">
+<button style="width:30%;background:var(--yellow);color:var(--navy)" data-t="pub" aria-pressed="true">Public 25–35%</button>
+<button style="flex:1;background:var(--blue);color:#fff;justify-content:flex-end" data-t="pri" aria-pressed="false">Private 65–75%</button>
+</div>
+<div class="tier pub show" id="t-pub"><h3>Public tier · the backbone</h3><p>Long-lived assets with broad public value, co-owned by Gangdong-gu, the Seoul Metropolitan Government, KDHC and KEPCO.</p><ul><li>5GDHC heating and cooling network</li><li>Central thermal storage</li><li>Central heat pumps</li><li>Grid modernisation</li></ul></div>
+<div class="tier pri" id="t-pri"><h3>Private tier · customer-facing assets</h3><p>Run by one operating company. Equity follows each operator's share of the investment:</p><ul><li>Building and HVAC operator: about 75%</li><li>PV operator: about 15%</li><li>EV charging operator: about 7%</li><li>Battery and flexibility operator: about 3%</li></ul></div>
+
+<div class="chart" style="margin-top:14px">
+<h4>INDICATIVE REGULATED TARIFFS · USD/kWh</h4>
+<div class="row dec"><span class="n">Heat</span><div class="track"><div class="fill" style="width:65%"></div></div><span class="v">0.13</span></div>
+<div class="row dec"><span class="n">Cooling</span><div class="track"><div class="fill" style="width:70%"></div></div><span class="v">0.14</span></div>
+<div class="row dec"><span class="n">Plug loads</span><div class="track"><div class="fill" style="width:80%"></div></div><span class="v">0.16</span></div>
+<div class="row dec"><span class="n">E-mobility</span><div class="track"><div class="fill" style="width:90%"></div></div><span class="v">0.18</span></div>
+<p class="note">Guaranteed for at least 20 years.</p>
+</div>
+
+<div class="safe">
+<button aria-expanded="false"><b>Auditable</b><span>Open-book accounting.</span><span class="more">Full costs, operator margins and carbon revenues are published every year, so citizens can see how their payments are used.</span></button>
+<button aria-expanded="false"><b>Vetoable</b><span>Citizens have a say.</span><span class="more">Citizen seats on the board and public golden-share rights let residents challenge tariff increases.</span></button>
+<button aria-expanded="false"><b>Exitable</b><span>No permanent lock-in.</span><span class="more">Participants can renegotiate or leave the service agreement after year seven.</span></button>
+</div>
+</section>
+
+<section id="next">
+<span class="label">04</span>
+<h2>Next steps for Seoul</h2>
+<p class="hint">Tap a step for details.</p>
+<ol class="steps">
+<li><button aria-expanded="false"><span class="num">1</span><span><b>Set up governance first</b><span class="s">Agree the rules before building.</span><span class="more">Bring together Gangdong-gu, the Seoul Metropolitan Government, KEPCO, KDHC, private operators and building associations to set up the Energy Hub, its tariff framework and citizen safeguards.</span></span><span class="chev" aria-hidden="true">▾</span></button></li>
+<li><button aria-expanded="false"><span class="num">2</span><span><b>Start with a demonstration cluster</b><span class="s">Prove it works at small scale.</span><span class="more">A few apartment buildings and a public anchor building, with rooftop PV, coordinated EV charging, thermal storage and a small 5GDHC network.</span></span><span class="chev" aria-hidden="true">▾</span></button></li>
+<li><button aria-expanded="false"><span class="num">3</span><span><b>Expand district-wide</b><span class="s">Grow cluster by cluster.</span><span class="more">Add neighbouring building clusters and more renewable generation once technical and financial performance is confirmed.</span></span><span class="chev" aria-hidden="true">▾</span></button></li>
+</ol>
+</section>
+
+<section id="report">
+<span class="label">05</span>
+<h2>Full report</h2>
+<p>All 81 pages, including methods, assumptions and sensitivity analysis.</p>
+<p><a class="btn" href="report_hq.pdf" download="Gangdong-gu_KTH_report.pdf">⬇ Download PDF (13 MB)</a></p>
+<p class="hint" style="margin-top:12px">Tap a heading on the contents page or a figure reference to jump there, or use the ☰ Contents button while reading.</p>
+<div id="reader" aria-live="polite"><p class="status" id="status">Loading the report…</p></div>
+<div id="sheet" class="sheet" role="dialog" aria-label="Contents" aria-hidden="true"><div class="sheethead"><b>Contents</b><button type="button" id="sheetclose" aria-label="Close contents">✕</button></div><ol id="sheetlist"></ol></div>
+<button id="backtoc" class="backtoc" type="button" aria-expanded="false" aria-controls="sheet">☰ Contents</button>
+</section>
+
+</main>
+
+<footer>
+<div class="wrap">
+<b>KTH Royal Institute of Technology</b> · Sustainable Energy Engineering · MJ2511 Energy Management<br>
+In collaboration with the city of Seoul. Results are comparative scenario outcomes, not exact forecasts.
+</div>
+</footer>
+
+<script>
+(function(){
+  /* 01: expandable KPI cards */
+  document.querySelectorAll('.kpi, .safe button, ol.steps button').forEach(function(b){
+    b.addEventListener('click',function(){ b.setAttribute('aria-expanded', b.getAttribute('aria-expanded')==='true'?'false':'true'); });
+  });
+
+  /* 02: scenario chart */
+  var M={
+    co2:{tab:'CO₂',title:'CO₂ EMISSIONS · kt CO₂ per year',sub:'Lower is better',base:1294,v:{bau:775,dec:552,gld:494},fmt:function(x){return x.toLocaleString('en-US');},low:true,
+         verdict:'District energy cuts 57% of today\'s CO₂, close to Grid-linked\'s 62%.'},
+    pe:{tab:'Primary energy',title:'PRIMARY ENERGY · GWh per year',sub:'Lower is better',base:7122,v:{bau:5126,dec:4150,gld:3912},fmt:function(x){return x.toLocaleString('en-US');},low:true,
+         verdict:'District energy saves 42% of today\'s primary energy; Grid-linked saves 45%.'},
+    peak:{tab:'Peak shaving',title:'PEAK SHAVING RATIO',sub:'Peak cut by battery and smart charging. Higher is better',v:{bau:2,dec:14,gld:23},fmt:function(x){return x+'%';},
+         verdict:'Grid-linked shaves most, but needs a battery twice the size (200 MWh vs 100 MWh).'},
+    npv:{tab:'NPV',title:'NET PRESENT VALUE · million USD',sub:'Higher is better',v:{bau:259,dec:1042,gld:868},fmt:function(x){return '$'+x.toLocaleString('en-US');},
+         verdict:'District energy has the strongest business case of the three.'},
+    capex:{tab:'Investment',title:'INVESTMENT (CAPEX) · billion USD',sub:'Lower is easier to finance',v:{bau:1.3,dec:1.8,gld:2.1},fmt:function(x){return '$'+x.toFixed(1)+' bn';},low:true,
+         verdict:'District energy needs $0.3 bn less than Grid-linked, yet returns more.'},
+    pb:{tab:'Payback',title:'DISCOUNTED PAYBACK · years',sub:'Shorter is better',v:{bau:14,dec:9,gld:11},fmt:function(x){return x+' yrs';},low:true,
+         verdict:'District energy pays back fastest, in 9 years.'}
+  };
+  var names={base:'2025 today',bau:'Business as usual',dec:'District energy',gld:'Grid-linked'};
+  var cur='co2', focus=null;
+  var tabs=document.getElementById('tabs');
+  Object.keys(M).forEach(function(k){
+    var b=document.createElement('button'); b.setAttribute('role','tab'); b.dataset.k=k; b.textContent=M[k].tab;
+    b.addEventListener('click',function(){ cur=k; draw(); });
+    tabs.appendChild(b);
+  });
+  function draw(){
+    var m=M[cur];
+    tabs.querySelectorAll('button').forEach(function(b){ b.setAttribute('aria-selected', b.dataset.k===cur?'true':'false'); });
+    document.getElementById('ctitle').textContent=m.title;
+    document.getElementById('csub').textContent=m.sub;
+    document.getElementById('verdict').textContent=m.verdict;
+    var keys=(m.base?['base']:[]).concat(['bau','dec','gld']);
+    var vals=keys.map(function(k){ return k==='base'?m.base:m.v[k]; });
+    var max=Math.max.apply(null,vals);
+    var box=document.getElementById('bars'); box.innerHTML='';
+    keys.forEach(function(k,i){
+      var r=document.createElement('div'); r.className='row '+k+(focus===k?' focus':'');
+      var n=document.createElement('span'); n.className='n'; n.textContent=names[k];
+      var t=document.createElement('div'); t.className='track'; var f=document.createElement('div'); f.className='fill'; t.appendChild(f);
+      var v=document.createElement('span'); v.className='v'; v.textContent=m.fmt(vals[i]);
+      r.appendChild(n); r.appendChild(t); r.appendChild(v); box.appendChild(r);
+      requestAnimationFrame(function(){ requestAnimationFrame(function(){ f.style.width=(vals[i]/max*100)+'%'; }); });
+    });
+    document.querySelectorAll('#tbl tbody tr').forEach(function(tr){ tr.classList.toggle('sel', tr.dataset.m===cur); });
+  }
+  document.querySelectorAll('.card').forEach(function(c){
+    c.addEventListener('click',function(){
+      focus = (focus===c.dataset.s)?null:c.dataset.s;
+      document.querySelectorAll('.card').forEach(function(x){ x.setAttribute('aria-pressed', x.dataset.s===focus?'true':'false'); });
+      document.querySelectorAll('#tbl [data-c]').forEach(function(td){ td.classList.toggle('hl', td.dataset.c===focus); });
+      draw();
+    });
+  });
+  document.querySelectorAll('#tbl tbody tr').forEach(function(tr){
+    tr.addEventListener('click',function(){ if(M[tr.dataset.m]){ cur=tr.dataset.m; draw(); document.getElementById('tabs').scrollIntoView({behavior:'smooth',block:'nearest'}); } });
+  });
+  draw();
+
+  /* 03: tiers and tariff calculator */
+  document.querySelectorAll('.split button').forEach(function(b){
+    b.addEventListener('click',function(){
+      document.querySelectorAll('.split button').forEach(function(x){ x.setAttribute('aria-pressed', x===b?'true':'false'); });
+      document.getElementById('t-pub').classList.toggle('show', b.dataset.t==='pub');
+      document.getElementById('t-pri').classList.toggle('show', b.dataset.t==='pri');
+    });
+  });
+})();
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js"></script>
+<script>
+(function(){
+  var reader=document.getElementById('reader'), status=document.getElementById('status'), back=document.getElementById('backtoc');
+  function fail(){ status.textContent='The inline reader could not load here.'; }
+  if(!window.pdfjsLib){ fail(); return; }
+  pdfjsLib.getDocument({url:'report.pdf'}).promise.then(function(pdf){
+    status.remove();
+    var pages=[], cache={};
+    function getPage(n){ return cache[n]||(cache[n]=pdf.getPage(n)); }
+
+    /* jump to a destination: page index plus optional y position */
+    function jumpTo(dest){
+      var p = (typeof dest==='string') ? pdf.getDestination(dest) : Promise.resolve(dest);
+      p.then(function(d){
+        if(!d) return;
+        var ref=d[0];
+        var idxP = (typeof ref==='object' && ref!==null) ? pdf.getPageIndex(ref) : Promise.resolve(ref);
+        idxP.then(function(idx){
+          var n=idx+1, wrap=pages[n-1]; if(!wrap) return;
+          getPage(n).then(function(page){
+            var vp=page.getViewport({scale:1}), frac=0;
+            if(d[1] && d[1].name==='XYZ' && typeof d[3]==='number'){ frac=Math.max(0,Math.min(1,(vp.height-d[3])/vp.height)); }
+            var y=wrap.getBoundingClientRect().top+window.scrollY+frac*wrap.offsetHeight-64;
+            window.scrollTo({top:y,behavior:'smooth'});
+          });
+        });
+      });
+    }
+
+    function render(wrap){
+      var n=+wrap.dataset.page;
+      getPage(n).then(function(page){
+        var w=reader.clientWidth-20, dpr=Math.min(window.devicePixelRatio||1,2);
+        var vp0=page.getViewport({scale:1}), css=w/vp0.width;
+        var vp=page.getViewport({scale:css*dpr}), vpCss=page.getViewport({scale:css});
+        var c=document.createElement('canvas'); c.width=vp.width; c.height=vp.height;
+        c.setAttribute('aria-label','Report page '+n);
+        page.render({canvasContext:c.getContext('2d'),viewport:vp}).promise.then(function(){
+          wrap.innerHTML=''; wrap.style.aspectRatio=''; wrap.appendChild(c);
+          var layer=document.createElement('div'); layer.className='links'; wrap.appendChild(layer);
+          page.getAnnotations().then(function(anns){
+            anns.forEach(function(a){
+              if(a.subtype!=='Link') return;
+              var r=vpCss.convertToViewportRectangle(a.rect);
+              var x=Math.min(r[0],r[2]), y=Math.min(r[1],r[3]), ww=Math.abs(r[2]-r[0]), hh=Math.abs(r[3]-r[1]);
+              var el;
+              if(a.url){ el=document.createElement('a'); el.href=a.url; el.target='_blank'; el.rel='noopener'; el.setAttribute('aria-label','External link'); }
+              else if(a.dest){ el=document.createElement('button'); el.type='button'; el.setAttribute('aria-label','Go to section');
+                el.addEventListener('click',function(){ jumpTo(a.dest); }); }
+              else return;
+              el.className='lk';
+              el.style.left=(x/vpCss.width*100)+'%'; el.style.top=(y/vpCss.height*100)+'%';
+              el.style.width=(ww/vpCss.width*100)+'%'; el.style.height=(hh/vpCss.height*100)+'%';
+              layer.appendChild(el);
+            });
+          });
+        });
+      });
+    }
+
+    var obs=('IntersectionObserver' in window)?new IntersectionObserver(function(entries){
+      entries.forEach(function(en){ if(en.isIntersecting){ obs.unobserve(en.target); render(en.target); } });
+    },{rootMargin:'1200px 0px'}):null;
+    for(var i=1;i<=pdf.numPages;i++){
+      var wrap=document.createElement('div'); wrap.className='pg'; wrap.dataset.page=i; wrap.id='page-'+i;
+      wrap.style.aspectRatio='1 / 1.414'; wrap.innerHTML='<span class="ph">Page '+i+'</span>';
+      reader.appendChild(wrap); pages.push(wrap);
+      if(obs) obs.observe(wrap); else render(wrap);
+    }
+
+    /* contents panel from the PDF outline */
+    pdf.getOutline().then(function(items){
+      if(!items||!items.length) return;
+      function build(list, onPick){
+      items.forEach(function(it){
+        var li=document.createElement('li');
+        var b=document.createElement('button'); b.type='button'; b.className='t1'; b.textContent=it.title;
+        b.addEventListener('click',function(){ onPick(); jumpTo(it.dest); });
+        li.appendChild(b);
+        if(it.items&&it.items.length){
+          var ul=document.createElement('ul');
+          it.items.forEach(function(sub){
+            var l2=document.createElement('li'), b2=document.createElement('button'); b2.type='button'; b2.className='t2'; b2.textContent=sub.title;
+            b2.addEventListener('click',function(){ onPick(); jumpTo(sub.dest); });
+            l2.appendChild(b2); ul.appendChild(l2);
+          });
+          li.appendChild(ul);
+        }
+        list.appendChild(li);
+      });
+      }
+      build(document.getElementById('sheetlist'), closeSheet);
+    });
+
+    /* floating "Contents" button while reading */
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(e){ back.classList.toggle('on', e[0].isIntersecting); },{threshold:0}).observe(reader);
+    }
+    var sheet=document.getElementById('sheet');
+    function openSheet(){ sheet.classList.add('open'); sheet.setAttribute('aria-hidden','false'); back.setAttribute('aria-expanded','true'); }
+    function closeSheet(){ sheet.classList.remove('open'); sheet.setAttribute('aria-hidden','true'); back.setAttribute('aria-expanded','false'); }
+    back.addEventListener('click',function(e){ e.stopPropagation(); sheet.classList.contains('open')?closeSheet():openSheet(); });
+    document.getElementById('sheetclose').addEventListener('click',closeSheet);
+    document.addEventListener('click',function(e){ if(sheet.classList.contains('open') && !sheet.contains(e.target) && e.target!==back) closeSheet(); });
+    document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeSheet(); });
+  }).catch(fail);
+})();
+</script>
+</body>
+</html>
